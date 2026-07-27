@@ -107,17 +107,7 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP','Hiragino
 
 <div class="loading" id="loading"><div class="spinner"></div></div>
 
-<!-- ログイン -->
-<div id="page-login" style="display:none">
-  <div class="login-wrap">
-    <div class="login-box">
-      <div class="login-title">🎪 運営管理</div>
-      <input class="login-input" type="password" id="pin-inp" placeholder="パスワードを入力" maxlength="20" onkeydown="if(event.key==='Enter')doLogin()">
-      <button class="login-btn" onclick="doLogin()">ログイン</button>
-      <div class="login-err" id="login-err" style="display:none">パスワードが正しくありません</div>
-    </div>
-  </div>
-</div>
+
 
 <!-- メイン -->
 <div id="page-main" style="display:none">
@@ -180,11 +170,13 @@ function init(){
       renderStats();
       renderAll();
     });
+    loggedIn=true;
     document.getElementById('loading').style.display='none';
-    document.getElementById('page-login').style.display='block';
+    document.getElementById('page-main').style.display='block';
+    renderStats(); renderStaffChips(); renderAll();
   }catch(e){
     document.getElementById('loading').style.display='none';
-    document.getElementById('page-login').style.display='block';
+    document.getElementById('page-main').style.display='block';
   }
 }
 
