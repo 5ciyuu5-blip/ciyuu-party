@@ -573,12 +573,20 @@ function renderChips(){
   const el=document.getElementById('session-chips');if(!el) return;
   const g=fState.gender;
   if(!g){el.innerHTML='<div style="color:var(--muted);font-size:13px;grid-column:1/-1;text-align:center;padding:12px;font-weight:700">先に性別を選択してください</div>';return;}
-  const avail=(cfg.sessions||[]).filter(s=>countP(s.id,g)<getMax(s,g));
-  if(!avail.length){el.innerHTML='<div style="color:var(--muted);font-size:13px;grid-column:1/-1;text-align:center;padding:12px;font-weight:700">現在予約可能な時間帯はありません</div>';fState.sid=null;return;}
-  el.innerHTML=avail.map(s=>{
+  const sessions=cfg.sessions||[];
+  if(!sessions.length){el.innerHTML='<div style="color:var(--muted);font-size:13px;grid-column:1/-1;text-align:center;padding:12px;font-weight:700">現在予約可能な時間帯はありません</div>';return;}
+  el.innerHTML=sessions.map(s=>{
+    const full=countP(s.id,g)>=getMax(s,g);
     const sel=fState.sid===s.id;
+    if(full){
+      return`<div class="time-chip" style="opacity:.4;cursor:not-allowed;background:#1a1800;border-color:#2a2600">
+        <span class="chip-time" style="color:var(--muted)">${s.time}</span>
+      </div>`;
+    }
     return`<div class="time-chip ${sel?'selected':''}" onclick="selectSes('${s.id}')"><span class="chip-time">${s.time}</span>${sel?'<span style="color:#0a0800;font-size:16px">✓</span>':''}</div>`;
   }).join('');
+  // 満席で選択中の枠が消えた場合リセット
+  if(fState.sid){const s=sessions.find(s=>s.id===fState.sid);if(s&&countP(s.id,g)>=getMax(s,g))fState.sid=null;}
 }
 
 function selectSes(id){fState.sid=id;renderChips();}
