@@ -5,133 +5,143 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ciyuu party 運営管理</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#0f0f14;--card:#18181f;--card2:#202028;--border:#2a2a38;
-  --yellow:#f0d000;--yellow-dim:#2a2600;--yellow-muted:#8a7a00;
-  --text:#eeeef8;--muted:#666688;--success:#4caf82;
-  --male:#6aabff;--male-bg:#0a1828;
-  --female:#ff8abf;--female-bg:#280a18;
+  --bg:#f4f3ee;--white:#ffffff;--border:#e0ddd5;--border2:#ccc9be;
+  --yellow:#d4a800;--yellow-bg:#fffbe6;--yellow-border:#f0d000;
+  --text:#1a1a1a;--muted:#888880;--light:#f9f8f4;
+  --male:#2d7dd2;--male-bg:#eef5ff;--male-border:#b8d4f5;
+  --female:#c2185b;--female-bg:#fff0f5;--female-border:#f5b8d4;
+  --success:#2e7d32;
 }
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP','Hiragino Sans',sans-serif;font-size:13px;line-height:1.5;min-height:100vh}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP','Hiragino Sans',sans-serif;font-size:15px;line-height:1.6;min-height:100vh}
 
 /* ローディング */
-.loading{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:999}
-.spinner{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--yellow);border-radius:50%;animation:spin .8s linear infinite}
+.loading{position:fixed;inset:0;background:#fff;display:flex;align-items:center;justify-content:center;z-index:999;flex-direction:column;gap:12px}
+.spinner{width:36px;height:36px;border:3px solid #eee;border-top-color:var(--yellow);border-radius:50%;animation:spin .8s linear infinite}
+.loading-txt{font-size:13px;color:var(--muted)}
 @keyframes spin{to{transform:rotate(360deg)}}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-
-/* ログイン */
-.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
-.login-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px 28px;width:100%;max-width:340px;text-align:center}
-.login-title{font-size:20px;font-weight:900;color:var(--yellow);margin-bottom:20px;font-family:'Montserrat',sans-serif}
-.login-input{width:100%;background:var(--card2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:16px;padding:13px;outline:none;font-family:inherit;text-align:center;margin-bottom:12px}
-.login-input:focus{border-color:var(--yellow)}
-.login-btn{width:100%;padding:14px;border-radius:10px;border:none;background:var(--yellow);color:#0a0800;font-weight:900;font-size:15px;cursor:pointer;font-family:inherit}
-.login-err{color:#ff6688;font-size:12px;margin-top:10px}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
 /* ヘッダー */
-.header{background:var(--card);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
-.header h1{font-size:16px;font-weight:900;color:var(--yellow);font-family:'Montserrat',sans-serif}
-.rt-badge{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--success);font-weight:700}
-.rt-dot{width:6px;height:6px;border-radius:50%;background:var(--success);animation:pulse 2s infinite}
+.header{background:#fff;border-bottom:2px solid var(--yellow-border);padding:14px 16px;position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.header-title{font-size:18px;font-weight:900;color:#1a1a1a;font-family:'Montserrat',sans-serif}
+.header-title span{color:var(--yellow)}
+.rt-badge{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--success);font-weight:700;background:#e8f5e9;padding:4px 10px;border-radius:99px}
+.rt-dot{width:7px;height:7px;border-radius:50%;background:var(--success);animation:pulse 2s infinite;flex-shrink:0}
 
 /* メイン */
-.main{padding:16px}
+.main{max-width:640px;margin:0 auto;padding:14px 12px 60px}
 
 /* 統計バー */
-.stats-bar{display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap}
-.stat-item{font-size:12px;color:var(--muted)}
-.stat-item b{color:var(--text);font-size:14px;margin-right:2px}
-.stat-item b.y{color:var(--yellow)}
-.stat-item b.m{color:var(--male)}
-.stat-item b.f{color:var(--female)}
+.stats-bar{background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:14px;display:flex;gap:0;overflow:hidden}
+.stat-item{flex:1;text-align:center;padding:0 8px;border-right:1px solid var(--border)}
+.stat-item:last-child{border-right:none}
+.stat-val{font-size:22px;font-weight:900;font-family:'Montserrat',sans-serif;color:#1a1a1a}
+.stat-val.y{color:var(--yellow)}
+.stat-val.m{color:var(--male)}
+.stat-val.f{color:var(--female)}
+.stat-label{font-size:11px;color:var(--muted);margin-top:2px;font-weight:700}
 
 /* スタッフ管理 */
-.staff-bar{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.staff-bar-label{font-size:11px;color:var(--yellow-muted);font-weight:800;letter-spacing:.1em;white-space:nowrap}
-.staff-chips{display:flex;flex-wrap:wrap;gap:6px;flex:1}
-.staff-chip{background:var(--card2);border:1px solid var(--border);border-radius:99px;padding:3px 10px;font-size:12px;display:flex;align-items:center;gap:5px}
-.staff-chip-del{background:none;border:none;color:#ff4466;cursor:pointer;font-size:13px;padding:0;line-height:1}
-.staff-add-row{display:flex;gap:6px}
-.staff-inp{background:var(--card2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:12px;padding:5px 10px;outline:none;font-family:inherit;width:100px}
+.staff-section{background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:14px}
+.staff-section-title{font-size:12px;font-weight:800;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+.staff-chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px}
+.staff-chip{background:var(--yellow-bg);border:1px solid var(--yellow-border);border-radius:99px;padding:5px 12px;font-size:14px;display:flex;align-items:center;gap:6px;font-weight:700}
+.chip-del{background:none;border:none;color:#cc0000;cursor:pointer;font-size:16px;padding:0;line-height:1;font-weight:700}
+.staff-add-row{display:flex;gap:8px}
+.staff-inp{flex:1;background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:14px;padding:9px 12px;outline:none;font-family:inherit}
 .staff-inp:focus{border-color:var(--yellow)}
-.staff-add-btn{padding:5px 12px;border-radius:8px;border:none;background:var(--yellow);color:#0a0800;font-weight:800;font-size:12px;cursor:pointer;font-family:inherit;white-space:nowrap}
+.staff-add-btn{padding:9px 16px;border-radius:8px;border:none;background:var(--yellow);color:#fff;font-weight:800;font-size:14px;cursor:pointer;font-family:inherit;white-space:nowrap}
 
 /* 時間枠 */
 .time-section{margin-bottom:20px}
-.time-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
-.time-badge{background:var(--yellow);color:#0a0800;font-weight:800;font-size:13px;padding:3px 12px;border-radius:6px;font-family:'Montserrat',sans-serif}
-.time-sub{font-size:11px;color:var(--muted)}
-.time-line{flex:1;height:1px;background:var(--border)}
+.time-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.time-badge{background:var(--yellow);color:#fff;font-weight:800;font-size:15px;padding:5px 14px;border-radius:8px;font-family:'Montserrat',sans-serif}
+.time-sub{font-size:13px;color:var(--muted);font-weight:700}
+.time-line{flex:1;height:2px;background:var(--border)}
 
-/* テーブル */
-.res-table{width:100%;border-collapse:collapse}
-.res-table th{background:var(--card2);color:var(--muted);font-size:11px;font-weight:700;padding:8px 10px;text-align:left;border-bottom:2px solid var(--border);white-space:nowrap;letter-spacing:.05em}
-.res-table td{padding:0;border-bottom:1px solid var(--border);vertical-align:top}
-.res-table tr:last-child td{border-bottom:none}
-.res-table tr:hover td{background:rgba(255,255,255,.02)}
+/* 予約カード */
+.res-card{background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden}
+.res-card-header{padding:12px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+.res-card-header.male{background:var(--male-bg);border-bottom-color:var(--male-border)}
+.res-card-header.female{background:var(--female-bg);border-bottom-color:var(--female-border)}
+.gender-badge{font-size:14px;font-weight:800;display:flex;align-items:center;gap:5px}
+.gender-badge.male{color:var(--male)}
+.gender-badge.female{color:var(--female)}
+.res-size{font-size:13px;color:var(--muted);font-weight:700}
+.res-timestamp{font-size:11px;color:var(--muted)}
 
-/* セル */
-.cell{padding:8px 10px}
-.gender-tag{display:inline-block;border-radius:4px;padding:2px 7px;font-size:11px;font-weight:800;white-space:nowrap}
-.gender-tag.male{background:var(--male-bg);color:var(--male)}
-.gender-tag.female{background:var(--female-bg);color:var(--female)}
-.person-block{padding:4px 0}
-.person-block:not(:last-child){border-bottom:1px dashed var(--border);margin-bottom:4px;padding-bottom:4px}
-.person-role{font-size:10px;color:var(--yellow-muted);font-weight:800;letter-spacing:.05em}
-.person-name{font-size:13px;font-weight:700;color:var(--text)}
-.person-sub{font-size:11px;color:var(--muted)}
-.insta{color:var(--muted);font-size:11px}
-.insta a{color:var(--muted);text-decoration:none}
-.insta a:hover{color:var(--text)}
-.timestamp{font-size:10px;color:#33334a}
+/* 担当選択 */
+.staff-select-wrap{padding:10px 14px;border-bottom:1px solid var(--border);background:var(--light)}
+.staff-select-label{font-size:11px;font-weight:800;color:var(--muted);letter-spacing:.08em;margin-bottom:5px}
+.staff-select{width:100%;background:#fff;border:2px solid var(--border2);border-radius:8px;color:var(--text);font-size:15px;padding:10px 12px;outline:none;font-family:inherit;cursor:pointer;font-weight:700}
+.staff-select:focus{border-color:var(--yellow)}
+.staff-select.assigned{border-color:var(--yellow);background:var(--yellow-bg);color:var(--yellow)}
 
-/* 担当ドロップダウン */
-.staff-sel{width:100%;background:var(--card2);border:1px solid var(--border);border-radius:6px;color:var(--muted);font-size:12px;padding:6px 8px;outline:none;font-family:inherit;cursor:pointer;min-width:90px}
-.staff-sel:focus{border-color:var(--yellow)}
-.staff-sel.assigned{border-color:var(--yellow);color:var(--yellow);background:var(--yellow-dim)}
+/* メンバーリスト */
+.members-wrap{padding:10px 14px}
+.member-row{padding:10px 12px;border-radius:8px;margin-bottom:8px;background:var(--light);border:1px solid var(--border)}
+.member-row:last-child{margin-bottom:0}
+.member-role{font-size:11px;font-weight:800;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.member-name{font-size:16px;font-weight:700;color:var(--text)}
+.member-kana{font-size:12px;color:var(--muted);margin-bottom:6px}
+.member-info-row{display:flex;flex-wrap:wrap;gap:8px}
+.member-info{font-size:13px;color:var(--text);display:flex;align-items:center;gap:4px}
+.member-info .icon{font-size:14px}
+.member-info a{color:var(--male);text-decoration:none;font-weight:700}
+.member-info a:hover{text-decoration:underline}
+
+/* 残席バー */
+.cap-bar-wrap{padding:8px 14px;background:var(--light);border-bottom:1px solid var(--border);display:flex;gap:12px}
+.cap-bar-item{flex:1}
+.cap-bar-label{font-size:11px;font-weight:800;margin-bottom:4px;display:flex;justify-content:space-between}
+.cap-bar-label.m{color:var(--male)}
+.cap-bar-label.f{color:var(--female)}
+.cap-bar-track{height:6px;background:#e0ddd5;border-radius:99px;overflow:hidden}
+.cap-bar-fill{height:100%;border-radius:99px;transition:width .3s ease}
+.cap-bar-fill.m{background:var(--male)}
+.cap-bar-fill.f{background:var(--female)}
+.cap-full{color:#cc0000!important}
 
 /* 空 */
-.empty-row td{text-align:center;color:#33334a;padding:16px;font-size:12px}
-
-@media(max-width:700px){
-  .res-table{display:block;overflow-x:auto}
-}
+.empty-slot{background:#fff;border:1px dashed var(--border2);border-radius:10px;padding:16px;text-align:center;color:var(--muted);font-size:13px}
 </style>
 </head>
 <body>
 
-<div class="loading" id="loading"><div class="spinner"></div></div>
+<div class="loading" id="loading">
+  <div class="spinner"></div>
+  <div class="loading-txt">データを読み込み中...</div>
+</div>
 
-
-
-<!-- メイン -->
 <div id="page-main" style="display:none">
+
   <div class="header">
-    <h1 id="hdr-title">ciyuu party 運営管理</h1>
-    <div class="rt-badge"><div class="rt-dot"></div>リアルタイム同期中</div>
+    <div class="header-title"><span id="hdr-title">ciyuu party</span> 運営</div>
+    <div class="rt-badge"><div class="rt-dot"></div>同期中</div>
   </div>
+
   <div class="main">
 
     <!-- 統計 -->
     <div class="stats-bar">
-      <div class="stat-item">総予約 <b class="y" id="s-total">0</b>組</div>
-      <div class="stat-item">参加者 <b id="s-people">0</b>名</div>
-      <div class="stat-item">男性 <b class="m" id="s-male">0</b>組</div>
-      <div class="stat-item">女性 <b class="f" id="s-female">0</b>組</div>
+      <div class="stat-item"><div class="stat-val y" id="s-total">0</div><div class="stat-label">総組数</div></div>
+      <div class="stat-item"><div class="stat-val" id="s-people">0</div><div class="stat-label">参加者</div></div>
+      <div class="stat-item"><div class="stat-val m" id="s-male">0</div><div class="stat-label">男性組</div></div>
+      <div class="stat-item"><div class="stat-val f" id="s-female">0</div><div class="stat-label">女性組</div></div>
     </div>
 
     <!-- スタッフ管理 -->
-    <div class="staff-bar">
-      <div class="staff-bar-label">👥 担当</div>
+    <div class="staff-section">
+      <div class="staff-section-title">👥 担当スタッフ</div>
       <div class="staff-chips" id="staff-chips"></div>
       <div class="staff-add-row">
-        <input class="staff-inp" type="text" id="staff-inp" placeholder="名前を追加" maxlength="20" onkeydown="if(event.key==='Enter')addStaff()">
-        <button class="staff-add-btn" onclick="addStaff()">＋</button>
+        <input class="staff-inp" type="text" id="staff-inp" placeholder="スタッフ名を追加" maxlength="20" onkeydown="if(event.key==='Enter')addStaff()">
+        <button class="staff-add-btn" onclick="addStaff()">＋ 追加</button>
       </div>
     </div>
 
@@ -145,9 +155,8 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP','Hiragino
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 <script>
 const FB={apiKey:"AIzaSyAqcDp0RFuJ_bY8whD_ekzEzvOXuUzbkDg",authDomain:"ciyuu-party-1.firebaseapp.com",projectId:"ciyuu-party-1",storageBucket:"ciyuu-party-1.firebasestorage.app",messagingSenderId:"622560799970",appId:"1:622560799970:web:73d4e7e5cb06faacccc2bb"};
-const OPS_PIN="ops2025";
 
-let db=null, eventCfg={}, resCache=[], staffList=[], loggedIn=false;
+let db=null,eventCfg={},resCache=[],staffList=[];
 
 function init(){
   try{
@@ -157,7 +166,7 @@ function init(){
       if(snap.exists){
         eventCfg=snap.data();
         const el=document.getElementById('hdr-title');
-        if(el) el.textContent=(eventCfg.eventName||'ciyuu party')+' 運営管理';
+        if(el) el.textContent=eventCfg.eventName||'ciyuu party';
       }
     });
     db.collection('config').doc('staff').onSnapshot(snap=>{
@@ -170,29 +179,15 @@ function init(){
       renderStats();
       renderAll();
     });
-    loggedIn=true;
     document.getElementById('loading').style.display='none';
     document.getElementById('page-main').style.display='block';
-    renderStats(); renderStaffChips(); renderAll();
   }catch(e){
     document.getElementById('loading').style.display='none';
     document.getElementById('page-main').style.display='block';
   }
 }
 
-function doLogin(){
-  if(document.getElementById('pin-inp').value===OPS_PIN){
-    loggedIn=true;
-    document.getElementById('page-login').style.display='none';
-    document.getElementById('page-main').style.display='block';
-    renderStats(); renderStaffChips(); renderAll();
-  }else{
-    document.getElementById('login-err').style.display='block';
-  }
-}
-
 function renderStats(){
-  if(!loggedIn) return;
   document.getElementById('s-total').textContent=resCache.length;
   document.getElementById('s-people').textContent=resCache.reduce((s,r)=>s+(r.groupSize||0),0);
   document.getElementById('s-male').textContent=resCache.filter(r=>r.gender==='male').length;
@@ -200,11 +195,10 @@ function renderStats(){
 }
 
 function renderStaffChips(){
-  if(!loggedIn) return;
   const el=document.getElementById('staff-chips');if(!el)return;
   el.innerHTML=staffList.length===0
-    ?'<span style="font-size:11px;color:#33334a">スタッフ名を追加してください</span>'
-    :staffList.map((n,i)=>`<div class="staff-chip"><span>${n}</span><button class="staff-chip-del" onclick="removeStaff(${i})">✕</button></div>`).join('');
+    ?'<span style="font-size:13px;color:var(--muted)">まだ登録されていません</span>'
+    :staffList.map((n,i)=>`<div class="staff-chip"><span>${n}</span><button class="chip-del" onclick="removeStaff(${i})">✕</button></div>`).join('');
 }
 
 async function addStaff(){
@@ -222,8 +216,9 @@ async function saveContact(resId,val){
 }
 
 function renderAll(){
-  if(!loggedIn) return;
   const sessions=eventCfg.sessions||[];
+  const container=document.getElementById('res-container');
+  if(!container)return;
   let html='';
 
   sessions.forEach(session=>{
@@ -237,57 +232,70 @@ function renderAll(){
         <div class="time-badge">${session.time}</div>
         <div class="time-sub">${sRes.length}組 ${total}名</div>
         <div class="time-line"></div>
-      </div>
-      <table class="res-table">
-        <thead>
-          <tr>
-            <th>性別</th>
-            <th>人数</th>
-            <th>名前 / フリガナ</th>
-            <th>生年月日</th>
-            <th>Instagram</th>
-            <th>担当</th>
-            <th>予約日時</th>
-          </tr>
-        </thead>
-        <tbody>`;
+      </div>`;
+
+    // 定員
+    const maxM=session.maxMale||10, maxF=session.maxFemale||10;
+    const cntM=resCache.filter(r=>r.sessionId===session.id&&r.gender==="male").reduce((s,r)=>s+(r.groupSize||0),0);
+    const cntF=resCache.filter(r=>r.sessionId===session.id&&r.gender==="female").reduce((s,r)=>s+(r.groupSize||0),0);
+    const pctM=Math.min(cntM/maxM*100,100);
+    const pctF=Math.min(cntF/maxF*100,100);
+    html+=`<div style="background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden">
+      <div class="cap-bar-wrap">
+        <div class="cap-bar-item">
+          <div class="cap-bar-label m"><span>👨 男性</span><span class="${cntM>=maxM?'cap-full':''}">${cntM}/${maxM}名</span></div>
+          <div class="cap-bar-track"><div class="cap-bar-fill m" style="width:${pctM}%"></div></div>
+        </div>
+        <div class="cap-bar-item">
+          <div class="cap-bar-label f"><span>👩 女性</span><span class="${cntF>=maxF?'cap-full':''}">${cntF}/${maxF}名</span></div>
+          <div class="cap-bar-track"><div class="cap-bar-fill f" style="width:${pctF}%"></div></div>
+        </div>
+      </div>`;
 
     if(sRes.length===0){
-      html+=`<tr class="empty-row"><td colspan="7">予約なし</td></tr>`;
+      html+=`<div style="padding:14px;text-align:center;color:var(--muted);font-size:13px">予約なし</div>`;
     }else{
       [...maleRes,...femaleRes].forEach(r=>{
+        const isM=r.gender==='male';
+        const gLabel=isM?'👨 男性':'👩 女性';
+        const gClass=isM?'male':'female';
         const rep=r.representative||{};
         const companions=r.companions||[];
         const allP=[{role:'代表者',...rep},...companions.map((c,i)=>({role:`同行者${i+1}`,...c}))];
         const assigned=r.staffContact||'';
-        
-        const dtFull=r.createdAt?new Date(r.createdAt).toLocaleString('ja-JP'):'';
-        const staffOpts=['<option value="">未選択</option>',...staffList.map(n=>`<option value="${n}"${assigned===n?' selected':''}>${n}</option>`)].join('');
+        const dt=r.createdAt?new Date(r.createdAt).toLocaleString('ja-JP'):'';
+        const staffOpts=['<option value="">── 担当未選択 ──</option>',...staffList.map(n=>`<option value="${n}"${assigned===n?' selected':''}>${n}</option>`)].join('');
 
-        const namesHtml=allP.map(p=>`<div class="person-block"><div class="person-role">${p.role}</div><div class="person-name">${p.name||''}</div><div class="person-sub">${p.kana||''}</div></div>`).join('');
-        const dobHtml=allP.map(p=>`<div class="person-block"><div class="person-role">&nbsp;</div><div style="font-size:12px;color:var(--text)">${p.dob||'-'}</div></div>`).join('');
-        const instaHtml=allP.map(p=>`<div class="person-block"><div class="person-role">&nbsp;</div><div class="insta"><a href="https://instagram.com/${p.instagram||''}" target="_blank">@${p.instagram||'-'}</a></div></div>`).join('');
+        const membersHtml=allP.map(p=>`
+          <div class="member-row">
+            <div class="member-role">${p.role}</div>
+            <div class="member-name">${p.name||''}</div>
+            <div class="member-kana">${p.kana||''}</div>
+            <div class="member-info-row">
+              <div class="member-info"><span class="icon">📅</span>${p.dob||'-'}</div>
+              <div class="member-info"><span class="icon">📸</span><a href="https://instagram.com/${p.instagram||''}" target="_blank">@${p.instagram||'-'}</a></div>
+            </div>
+          </div>`).join('');
 
-        html+=`<tr>
-          <td class="cell"><span class="gender-tag ${r.gender==='male'?'male':'female'}">${r.gender==='male'?'👨 男':'👩 女'}</span></td>
-          <td class="cell" style="text-align:center;font-weight:700">${r.groupSize}名</td>
-          <td class="cell">${namesHtml}</td>
-          <td class="cell">${dobHtml}</td>
-          <td class="cell">${instaHtml}</td>
-          <td class="cell">
-            <select class="staff-sel ${assigned?'assigned':''}" onchange="saveContact('${r.id}',this.value);this.className='staff-sel '+(this.value?'assigned':'')">
+        html+=`<div class="res-card">
+          <div class="res-card-header ${gClass}">
+            <div class="gender-badge ${gClass}">${gLabel}　${r.groupSize}名</div>
+            <div class="res-timestamp">${dt}</div>
+          </div>
+          <div class="staff-select-wrap">
+            <div class="staff-select-label">👤 担当スタッフ</div>
+            <select class="staff-select ${assigned?'assigned':''}" onchange="saveContact('${r.id}',this.value);this.className='staff-select '+(this.value?'assigned':'')">
               ${staffOpts}
             </select>
-          </td>
-          <td class="cell timestamp">${dtFull}</td>
-        </tr>`;
+          </div>
+          <div class="members-wrap">${membersHtml}</div>
+        </div>`;
       });
     }
-
-    html+=`</tbody></table></div>`;
+    html+=`</div></div>`;
   });
 
-  document.getElementById('res-container').innerHTML=html||'<div style="text-align:center;color:var(--muted);padding:40px">予約データがありません</div>';
+  container.innerHTML=html||'<div class="empty-slot">予約データがありません</div>';
 }
 
 init();
