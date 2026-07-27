@@ -15,276 +15,269 @@
   --male:#2d7dd2;--male-bg:#eef5ff;--male-border:#b8d4f5;
   --female:#c2185b;--female-bg:#fff0f5;--female-border:#f5b8d4;
   --success:#2e7d32;
+  --c0:#e65c00;--c1:#1565c0;--c2:#2e7d32;--c3:#6a1b9a;
 }
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP','Hiragino Sans',sans-serif;font-size:15px;line-height:1.6;min-height:100vh}
 
-/* ローディング */
 .loading{position:fixed;inset:0;background:#fff;display:flex;align-items:center;justify-content:center;z-index:999;flex-direction:column;gap:12px}
 .spinner{width:36px;height:36px;border:3px solid #eee;border-top-color:var(--yellow);border-radius:50%;animation:spin .8s linear infinite}
-.loading-txt{font-size:13px;color:var(--muted)}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
-/* ヘッダー */
 .header{background:#fff;border-bottom:2px solid var(--yellow-border);padding:14px 16px;position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,.06)}
 .header-title{font-size:18px;font-weight:900;color:#1a1a1a;font-family:'Montserrat',sans-serif}
 .header-title span{color:var(--yellow)}
 .rt-badge{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--success);font-weight:700;background:#e8f5e9;padding:4px 10px;border-radius:99px}
 .rt-dot{width:7px;height:7px;border-radius:50%;background:var(--success);animation:pulse 2s infinite;flex-shrink:0}
 
-/* メイン */
 .main{max-width:640px;margin:0 auto;padding:14px 12px 60px}
 
-/* 統計バー */
-.stats-bar{background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:14px;display:flex;gap:0;overflow:hidden}
+.stats-bar{background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:14px;display:flex}
 .stat-item{flex:1;text-align:center;padding:0 8px;border-right:1px solid var(--border)}
 .stat-item:last-child{border-right:none}
-.stat-val{font-size:22px;font-weight:900;font-family:'Montserrat',sans-serif;color:#1a1a1a}
+.stat-val{font-size:22px;font-weight:900;font-family:'Montserrat',sans-serif}
 .stat-val.y{color:var(--yellow)}
 .stat-val.m{color:var(--male)}
 .stat-val.f{color:var(--female)}
 .stat-label{font-size:11px;color:var(--muted);margin-top:2px;font-weight:700}
 
-/* スタッフ管理 */
 .staff-section{background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:14px}
 .staff-section-title{font-size:12px;font-weight:800;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
-.staff-chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px}
-.staff-chip{background:var(--yellow-bg);border:1px solid var(--yellow-border);border-radius:99px;padding:5px 12px;font-size:14px;display:flex;align-items:center;gap:6px;font-weight:700}
-.chip-del{background:none;border:none;color:#cc0000;cursor:pointer;font-size:16px;padding:0;line-height:1;font-weight:700}
-.staff-add-row{display:flex;gap:8px}
-.staff-inp{flex:1;background:var(--bg);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:14px;padding:9px 12px;outline:none;font-family:inherit}
-.staff-inp:focus{border-color:var(--yellow)}
-.staff-add-btn{padding:9px 16px;border-radius:8px;border:none;background:var(--yellow);color:#fff;font-weight:800;font-size:14px;cursor:pointer;font-family:inherit;white-space:nowrap}
+.staff-chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border-radius:99px;padding:6px 16px;font-size:14px;font-weight:800;color:#fff;display:inline-flex;align-items:center}
+.chip0{background:var(--c0)}
+.chip1{background:var(--c1)}
+.chip2{background:var(--c2)}
+.chip3{background:var(--c3)}
 
-/* 時間枠 */
-.time-section{margin-bottom:20px}
+.time-section{margin-bottom:16px}
 .time-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
 .time-badge{background:var(--yellow);color:#fff;font-weight:800;font-size:15px;padding:5px 14px;border-radius:8px;font-family:'Montserrat',sans-serif}
 .time-sub{font-size:13px;color:var(--muted);font-weight:700}
 .time-line{flex:1;height:2px;background:var(--border)}
 
-/* 予約カード */
-.res-card{background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden}
-.res-card-header{padding:12px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
-.res-card-header.male{background:var(--male-bg);border-bottom-color:var(--male-border)}
-.res-card-header.female{background:var(--female-bg);border-bottom-color:var(--female-border)}
-.gender-badge{font-size:14px;font-weight:800;display:flex;align-items:center;gap:5px}
+.time-card{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+
+.cap-bar-wrap{padding:10px 14px;background:var(--light);border-bottom:1px solid var(--border);display:flex;gap:12px}
+.cap-bar-item{flex:1}
+.cap-bar-label{font-size:12px;font-weight:800;margin-bottom:4px;display:flex;justify-content:space-between}
+.cap-bar-label.m{color:var(--male)}
+.cap-bar-label.f{color:var(--female)}
+.cap-bar-label.full{color:#cc0000}
+.cap-bar-track{height:7px;background:#e0ddd5;border-radius:99px;overflow:hidden}
+.cap-bar-fill{height:100%;border-radius:99px}
+.cap-bar-fill.m{background:var(--male)}
+.cap-bar-fill.f{background:var(--female)}
+.cap-bar-fill.full{background:#cc0000}
+
+.no-res{padding:14px;text-align:center;color:var(--muted);font-size:13px}
+
+.res-card{border-top:1px solid var(--border)}
+.res-card-header{padding:12px 14px;display:flex;align-items:center;justify-content:space-between}
+.res-card-header.male{background:var(--male-bg)}
+.res-card-header.female{background:var(--female-bg)}
+.gender-badge{font-size:15px;font-weight:800}
 .gender-badge.male{color:var(--male)}
 .gender-badge.female{color:var(--female)}
-.res-size{font-size:13px;color:var(--muted);font-weight:700}
-.res-timestamp{font-size:11px;color:var(--muted)}
+.res-info{font-size:12px;color:var(--muted);text-align:right}
 
-/* 担当選択 */
-.staff-select-wrap{padding:10px 14px;border-bottom:1px solid var(--border);background:var(--light)}
-.staff-select-label{font-size:11px;font-weight:800;color:var(--muted);letter-spacing:.08em;margin-bottom:5px}
-.staff-select{width:100%;background:#fff;border:2px solid var(--border2);border-radius:8px;color:var(--text);font-size:15px;padding:10px 12px;outline:none;font-family:inherit;cursor:pointer;font-weight:700}
-.staff-select:focus{border-color:var(--yellow)}
-.staff-select.assigned{border-color:var(--yellow);background:var(--yellow-bg);color:var(--yellow)}
+.staff-sel-wrap{padding:10px 14px;background:var(--light);border-top:1px solid var(--border)}
+.staff-sel-label{font-size:11px;font-weight:800;color:var(--muted);letter-spacing:.08em;margin-bottom:5px}
+.staff-sel{width:100%;background:#fff;border:2px solid var(--border2);border-radius:8px;color:var(--text);font-size:15px;padding:10px 12px;outline:none;font-family:inherit;cursor:pointer;font-weight:700;-webkit-appearance:none;appearance:none}
 
-/* メンバーリスト */
 .members-wrap{padding:10px 14px}
 .member-row{padding:10px 12px;border-radius:8px;margin-bottom:8px;background:var(--light);border:1px solid var(--border)}
 .member-row:last-child{margin-bottom:0}
-.member-role{font-size:11px;font-weight:800;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.member-role{font-size:11px;font-weight:800;color:var(--muted);letter-spacing:.08em;margin-bottom:4px}
 .member-name{font-size:16px;font-weight:700;color:var(--text)}
 .member-kana{font-size:12px;color:var(--muted);margin-bottom:6px}
-.member-info-row{display:flex;flex-wrap:wrap;gap:8px}
+.member-info-row{display:flex;flex-wrap:wrap;gap:10px}
 .member-info{font-size:13px;color:var(--text);display:flex;align-items:center;gap:4px}
-.member-info .icon{font-size:14px}
 .member-info a{color:var(--male);text-decoration:none;font-weight:700}
-.member-info a:hover{text-decoration:underline}
-
-/* 残席バー */
-.cap-bar-wrap{padding:8px 14px;background:var(--light);border-bottom:1px solid var(--border);display:flex;gap:12px}
-.cap-bar-item{flex:1}
-.cap-bar-label{font-size:11px;font-weight:800;margin-bottom:4px;display:flex;justify-content:space-between}
-.cap-bar-label.m{color:var(--male)}
-.cap-bar-label.f{color:var(--female)}
-.cap-bar-track{height:6px;background:#e0ddd5;border-radius:99px;overflow:hidden}
-.cap-bar-fill{height:100%;border-radius:99px;transition:width .3s ease}
-.cap-bar-fill.m{background:var(--male)}
-.cap-bar-fill.f{background:var(--female)}
-.cap-full{color:#cc0000!important}
-
-/* 空 */
-.empty-slot{background:#fff;border:1px dashed var(--border2);border-radius:10px;padding:16px;text-align:center;color:var(--muted);font-size:13px}
 </style>
 </head>
 <body>
 
 <div class="loading" id="loading">
   <div class="spinner"></div>
-  <div class="loading-txt">データを読み込み中...</div>
+  <p style="font-size:13px;color:#999">読み込み中...</p>
 </div>
 
 <div id="page-main" style="display:none">
-
   <div class="header">
     <div class="header-title"><span id="hdr-title">ciyuu party</span> 運営</div>
     <div class="rt-badge"><div class="rt-dot"></div>同期中</div>
   </div>
-
   <div class="main">
-
-    <!-- 統計 -->
     <div class="stats-bar">
       <div class="stat-item"><div class="stat-val y" id="s-total">0</div><div class="stat-label">総組数</div></div>
       <div class="stat-item"><div class="stat-val" id="s-people">0</div><div class="stat-label">参加者</div></div>
       <div class="stat-item"><div class="stat-val m" id="s-male">0</div><div class="stat-label">男性組</div></div>
       <div class="stat-item"><div class="stat-val f" id="s-female">0</div><div class="stat-label">女性組</div></div>
     </div>
-
-    <!-- スタッフ管理 -->
     <div class="staff-section">
       <div class="staff-section-title">👥 担当スタッフ</div>
-      <div class="staff-chips" id="staff-chips"></div>
-      <div class="staff-add-row">
-        <input class="staff-inp" type="text" id="staff-inp" placeholder="スタッフ名を追加" maxlength="20" onkeydown="if(event.key==='Enter')addStaff()">
-        <button class="staff-add-btn" onclick="addStaff()">＋ 追加</button>
+      <div class="staff-chips">
+        <div class="chip chip0">柴田</div>
+        <div class="chip chip1">熊澤</div>
+        <div class="chip chip2">國和</div>
+        <div class="chip chip3">出原</div>
       </div>
     </div>
-
-    <!-- 予約一覧 -->
     <div id="res-container"></div>
-
   </div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 <script>
-const FB={apiKey:"AIzaSyAqcDp0RFuJ_bY8whD_ekzEzvOXuUzbkDg",authDomain:"ciyuu-party-1.firebaseapp.com",projectId:"ciyuu-party-1",storageBucket:"ciyuu-party-1.firebasestorage.app",messagingSenderId:"622560799970",appId:"1:622560799970:web:73d4e7e5cb06faacccc2bb"};
+const FB = {
+  apiKey:"AIzaSyAqcDp0RFuJ_bY8whD_ekzEzvOXuUzbkDg",
+  authDomain:"ciyuu-party-1.firebaseapp.com",
+  projectId:"ciyuu-party-1",
+  storageBucket:"ciyuu-party-1.firebasestorage.app",
+  messagingSenderId:"622560799970",
+  appId:"1:622560799970:web:73d4e7e5cb06faacccc2bb"
+};
 
-let db=null,eventCfg={},resCache=[],staffList=[];
+const STAFF = [
+  {name:"柴田", color:"#e65c00"},
+  {name:"熊澤", color:"#1565c0"},
+  {name:"國和", color:"#2e7d32"},
+  {name:"出原", color:"#6a1b9a"},
+];
 
-function init(){
-  try{
-    if(!firebase.apps.length) firebase.initializeApp(FB);
-    db=firebase.firestore();
-    db.collection('config').doc('main').onSnapshot(snap=>{
-      if(snap.exists){
-        eventCfg=snap.data();
-        const el=document.getElementById('hdr-title');
-        if(el) el.textContent=eventCfg.eventName||'ciyuu party';
+let db = null, eventCfg = {}, resCache = [];
+
+function init() {
+  try {
+    if (!firebase.apps.length) firebase.initializeApp(FB);
+    db = firebase.firestore();
+
+    db.collection('config').doc('main').onSnapshot(snap => {
+      if (snap.exists) {
+        eventCfg = snap.data();
+        const el = document.getElementById('hdr-title');
+        if (el) el.textContent = eventCfg.eventName || 'ciyuu party';
       }
+      render();
     });
-    db.collection('config').doc('staff').onSnapshot(snap=>{
-      staffList=snap.exists?(snap.data().names||[]):[];
-      renderStaffChips();
-      renderAll();
-    });
-    db.collection('reservations').orderBy('createdAt','asc').onSnapshot(snap=>{
-      resCache=snap.docs.map(d=>({id:d.id,...d.data()}));
+
+    db.collection('reservations').orderBy('createdAt','asc').onSnapshot(snap => {
+      resCache = snap.docs.map(d => ({id: d.id, ...d.data()}));
       renderStats();
-      renderAll();
+      render();
     });
-    document.getElementById('loading').style.display='none';
-    document.getElementById('page-main').style.display='block';
-  }catch(e){
-    document.getElementById('loading').style.display='none';
-    document.getElementById('page-main').style.display='block';
+
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('page-main').style.display = 'block';
+  } catch(e) {
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('page-main').style.display = 'block';
   }
 }
 
-function renderStats(){
-  document.getElementById('s-total').textContent=resCache.length;
-  document.getElementById('s-people').textContent=resCache.reduce((s,r)=>s+(r.groupSize||0),0);
-  document.getElementById('s-male').textContent=resCache.filter(r=>r.gender==='male').length;
-  document.getElementById('s-female').textContent=resCache.filter(r=>r.gender==='female').length;
+function renderStats() {
+  document.getElementById('s-total').textContent = resCache.length;
+  document.getElementById('s-people').textContent = resCache.reduce((s,r) => s+(r.groupSize||0), 0);
+  document.getElementById('s-male').textContent = resCache.filter(r => r.gender==='male').length;
+  document.getElementById('s-female').textContent = resCache.filter(r => r.gender==='female').length;
 }
 
-function renderStaffChips(){
-  const el=document.getElementById('staff-chips');if(!el)return;
-  el.innerHTML=staffList.length===0
-    ?'<span style="font-size:13px;color:var(--muted)">まだ登録されていません</span>'
-    :staffList.map((n,i)=>`<div class="staff-chip"><span>${n}</span><button class="chip-del" onclick="removeStaff(${i})">✕</button></div>`).join('');
+async function saveContact(resId, val) {
+  if (!db) return;
+  try { await db.collection('reservations').doc(resId).update({staffContact: val}); } catch(e) {}
 }
 
-async function addStaff(){
-  const inp=document.getElementById('staff-inp');
-  const name=inp.value.trim();
-  if(!name||staffList.includes(name)){inp.value='';return;}
-  await db.collection('config').doc('staff').set({names:[...staffList,name]});
-  inp.value='';
-}
-async function removeStaff(i){
-  await db.collection('config').doc('staff').set({names:staffList.filter((_,idx)=>idx!==i)});
-}
-async function saveContact(resId,val){
-  await db.collection('reservations').doc(resId).update({staffContact:val});
+function applyColor(sel) {
+  const staff = STAFF.find(s => s.name === sel.value);
+  if (staff) {
+    sel.style.borderColor = staff.color;
+    sel.style.color = staff.color;
+    sel.style.fontWeight = '800';
+  } else {
+    sel.style.borderColor = '';
+    sel.style.color = '';
+    sel.style.fontWeight = '';
+  }
 }
 
-function renderAll(){
-  const sessions=eventCfg.sessions||[];
-  const container=document.getElementById('res-container');
-  if(!container)return;
-  let html='';
+function render() {
+  const container = document.getElementById('res-container');
+  if (!container) return;
+  const sessions = eventCfg.sessions || [];
+  if (!sessions.length) { container.innerHTML = '<p style="text-align:center;color:#aaa;padding:40px">設定を読み込み中...</p>'; return; }
 
-  sessions.forEach(session=>{
-    const sRes=resCache.filter(r=>r.sessionId===session.id);
-    const maleRes=sRes.filter(r=>r.gender==='male');
-    const femaleRes=sRes.filter(r=>r.gender==='female');
-    const total=sRes.reduce((s,r)=>s+(r.groupSize||0),0);
+  let html = '';
+  sessions.forEach(session => {
+    const sRes = resCache.filter(r => r.sessionId === session.id);
+    const maleRes = sRes.filter(r => r.gender === 'male');
+    const femaleRes = sRes.filter(r => r.gender === 'female');
+    const cntM = sRes.filter(r=>r.gender==='male').reduce((s,r)=>s+(r.groupSize||0),0);
+    const cntF = sRes.filter(r=>r.gender==='female').reduce((s,r)=>s+(r.groupSize||0),0);
+    const maxM = session.maxMale || 10;
+    const maxF = session.maxFemale || 10;
+    const pctM = Math.min(cntM/maxM*100, 100);
+    const pctF = Math.min(cntF/maxF*100, 100);
+    const fullM = cntM >= maxM;
+    const fullF = cntF >= maxF;
+    const total = sRes.reduce((s,r) => s+(r.groupSize||0), 0);
 
-    html+=`<div class="time-section">
+    html += `<div class="time-section">
       <div class="time-head">
         <div class="time-badge">${session.time}</div>
         <div class="time-sub">${sRes.length}組 ${total}名</div>
         <div class="time-line"></div>
-      </div>`;
+      </div>
+      <div class="time-card">
+        <div class="cap-bar-wrap">
+          <div class="cap-bar-item">
+            <div class="cap-bar-label m ${fullM?'full':''}"><span>👨 男性</span><span>${cntM}/${maxM}名${fullM?' 満席':''}</span></div>
+            <div class="cap-bar-track"><div class="cap-bar-fill m ${fullM?'full':''}" style="width:${pctM}%"></div></div>
+          </div>
+          <div class="cap-bar-item">
+            <div class="cap-bar-label f ${fullF?'full':''}"><span>👩 女性</span><span>${cntF}/${maxF}名${fullF?' 満席':''}</span></div>
+            <div class="cap-bar-track"><div class="cap-bar-fill f ${fullF?'full':''}" style="width:${pctF}%"></div></div>
+          </div>
+        </div>`;
 
-    // 定員
-    const maxM=session.maxMale||10, maxF=session.maxFemale||10;
-    const cntM=resCache.filter(r=>r.sessionId===session.id&&r.gender==="male").reduce((s,r)=>s+(r.groupSize||0),0);
-    const cntF=resCache.filter(r=>r.sessionId===session.id&&r.gender==="female").reduce((s,r)=>s+(r.groupSize||0),0);
-    const pctM=Math.min(cntM/maxM*100,100);
-    const pctF=Math.min(cntF/maxF*100,100);
-    html+=`<div style="background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden">
-      <div class="cap-bar-wrap">
-        <div class="cap-bar-item">
-          <div class="cap-bar-label m"><span>👨 男性</span><span class="${cntM>=maxM?'cap-full':''}">${cntM}/${maxM}名</span></div>
-          <div class="cap-bar-track"><div class="cap-bar-fill m" style="width:${pctM}%"></div></div>
-        </div>
-        <div class="cap-bar-item">
-          <div class="cap-bar-label f"><span>👩 女性</span><span class="${cntF>=maxF?'cap-full':''}">${cntF}/${maxF}名</span></div>
-          <div class="cap-bar-track"><div class="cap-bar-fill f" style="width:${pctF}%"></div></div>
-        </div>
-      </div>`;
+    if (sRes.length === 0) {
+      html += `<div class="no-res">予約なし</div>`;
+    } else {
+      [...maleRes, ...femaleRes].forEach(r => {
+        const isM = r.gender === 'male';
+        const gLabel = isM ? '👨 男性' : '👩 女性';
+        const gClass = isM ? 'male' : 'female';
+        const rep = r.representative || {};
+        const companions = r.companions || [];
+        const allP = [{role:'代表者', ...rep}, ...companions.map((c,i) => ({role:`同行者${i+1}`, ...c}))];
+        const assigned = r.staffContact || '';
+        const dt = r.createdAt ? new Date(r.createdAt).toLocaleString('ja-JP') : '';
+        const staffOpts = STAFF.map(s => `<option value="${s.name}"${assigned===s.name?' selected':''}>${s.name}</option>`).join('');
+        const assignedStaff = STAFF.find(s => s.name === assigned);
+        const selStyle = assignedStaff ? `border-color:${assignedStaff.color};color:${assignedStaff.color};font-weight:800` : '';
 
-    if(sRes.length===0){
-      html+=`<div style="padding:14px;text-align:center;color:var(--muted);font-size:13px">予約なし</div>`;
-    }else{
-      [...maleRes,...femaleRes].forEach(r=>{
-        const isM=r.gender==='male';
-        const gLabel=isM?'👨 男性':'👩 女性';
-        const gClass=isM?'male':'female';
-        const rep=r.representative||{};
-        const companions=r.companions||[];
-        const allP=[{role:'代表者',...rep},...companions.map((c,i)=>({role:`同行者${i+1}`,...c}))];
-        const assigned=r.staffContact||'';
-        const dt=r.createdAt?new Date(r.createdAt).toLocaleString('ja-JP'):'';
-        const staffOpts=['<option value="">── 担当未選択 ──</option>',...staffList.map(n=>`<option value="${n}"${assigned===n?' selected':''}>${n}</option>`)].join('');
-
-        const membersHtml=allP.map(p=>`
+        const membersHtml = allP.map(p => `
           <div class="member-row">
             <div class="member-role">${p.role}</div>
             <div class="member-name">${p.name||''}</div>
             <div class="member-kana">${p.kana||''}</div>
             <div class="member-info-row">
-              <div class="member-info"><span class="icon">📅</span>${p.dob||'-'}</div>
-              <div class="member-info"><span class="icon">📸</span><a href="https://instagram.com/${p.instagram||''}" target="_blank">@${p.instagram||'-'}</a></div>
+              <div class="member-info">📅 ${p.dob||'-'}</div>
+              <div class="member-info">📸 <a href="https://instagram.com/${p.instagram||''}" target="_blank">@${p.instagram||'-'}</a></div>
             </div>
           </div>`).join('');
 
-        html+=`<div class="res-card">
+        html += `<div class="res-card">
           <div class="res-card-header ${gClass}">
             <div class="gender-badge ${gClass}">${gLabel}　${r.groupSize}名</div>
-            <div class="res-timestamp">${dt}</div>
+            <div class="res-info">${dt}</div>
           </div>
-          <div class="staff-select-wrap">
-            <div class="staff-select-label">👤 担当スタッフ</div>
-            <select class="staff-select ${assigned?'assigned':''}" onchange="saveContact('${r.id}',this.value);this.className='staff-select '+(this.value?'assigned':'')">
+          <div class="staff-sel-wrap">
+            <div class="staff-sel-label">👤 担当スタッフ</div>
+            <select class="staff-sel" style="${selStyle}" data-id="${r.id}" onchange="applyColor(this);saveContact('${r.id}',this.value)">
+              <option value="">── 未選択 ──</option>
               ${staffOpts}
             </select>
           </div>
@@ -292,10 +285,11 @@ function renderAll(){
         </div>`;
       });
     }
-    html+=`</div></div>`;
+
+    html += `</div></div>`;
   });
 
-  container.innerHTML=html||'<div class="empty-slot">予約データがありません</div>';
+  container.innerHTML = html;
 }
 
 init();
