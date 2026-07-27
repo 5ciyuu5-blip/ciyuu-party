@@ -5,129 +5,113 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ciyuu party 運営管理</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#0f0f14;--card:#18181f;--card2:#202028;--border:#2a2a38;
   --yellow:#f0d000;--yellow-dim:#2a2600;--yellow-muted:#8a7a00;
-  --text:#eeeef8;--muted:#6666888;--success:#4caf82;
-  --male:#6aabff;--male-bg:#0a1828;--male-border:#1a3a5a;
-  --female:#ff8abf;--female-bg:#280a18;--female-border:#4a1a30;
-  --red:#ff4466;
+  --text:#eeeef8;--muted:#666688;--success:#4caf82;
+  --male:#6aabff;--male-bg:#0a1828;
+  --female:#ff8abf;--female-bg:#280a18;
 }
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP','Hiragino Sans',sans-serif;font-size:14px;line-height:1.6;min-height:100vh}
-.mont{font-family:'Montserrat',sans-serif}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP','Hiragino Sans',sans-serif;font-size:13px;line-height:1.5;min-height:100vh}
 
 /* ローディング */
-.loading{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:999;flex-direction:column;gap:12px}
+.loading{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:999}
 .spinner{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--yellow);border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 
 /* ログイン */
 .login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
-.login-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px 28px;width:100%;max-width:360px;text-align:center}
-.login-icon{font-size:36px;margin-bottom:16px}
-.login-title{font-size:20px;font-weight:900;color:var(--yellow);margin-bottom:6px;font-family:'Montserrat',sans-serif}
-.login-sub{font-size:13px;color:#6666888;margin-bottom:24px}
-.login-input{width:100%;background:var(--card2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:16px;padding:13px 14px;outline:none;font-family:inherit;text-align:center;letter-spacing:.1em;margin-bottom:12px}
+.login-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px 28px;width:100%;max-width:340px;text-align:center}
+.login-title{font-size:20px;font-weight:900;color:var(--yellow);margin-bottom:20px;font-family:'Montserrat',sans-serif}
+.login-input{width:100%;background:var(--card2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:16px;padding:13px;outline:none;font-family:inherit;text-align:center;margin-bottom:12px}
 .login-input:focus{border-color:var(--yellow)}
 .login-btn{width:100%;padding:14px;border-radius:10px;border:none;background:var(--yellow);color:#0a0800;font-weight:900;font-size:15px;cursor:pointer;font-family:inherit}
-.login-err{color:#ff6688;font-size:13px;margin-top:10px}
+.login-err{color:#ff6688;font-size:12px;margin-top:10px}
 
 /* ヘッダー */
-.header{background:var(--card);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
-.header-left h1{font-size:18px;font-weight:900;color:var(--yellow);font-family:'Montserrat',sans-serif}
-.header-left p{font-size:11px;color:#6666888;margin-top:2px}
-.rt-badge{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--success);font-weight:700}
-.rt-dot{width:7px;height:7px;border-radius:50%;background:var(--success);animation:pulse 2s infinite}
+.header{background:var(--card);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
+.header h1{font-size:16px;font-weight:900;color:var(--yellow);font-family:'Montserrat',sans-serif}
+.rt-badge{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--success);font-weight:700}
+.rt-dot{width:6px;height:6px;border-radius:50%;background:var(--success);animation:pulse 2s infinite}
 
-/* メインレイアウト */
-.main{max-width:1200px;margin:0 auto;padding:20px 16px 60px}
+/* メイン */
+.main{padding:16px}
 
-/* 統計 */
-.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:24px}
-.stat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center}
-.stat-val{font-size:28px;font-weight:900;color:var(--yellow);font-family:'Montserrat',sans-serif}
-.stat-label{font-size:11px;color:#6666888;margin-top:4px;font-weight:700}
+/* 統計バー */
+.stats-bar{display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap}
+.stat-item{font-size:12px;color:var(--muted)}
+.stat-item b{color:var(--text);font-size:14px;margin-right:2px}
+.stat-item b.y{color:var(--yellow)}
+.stat-item b.m{color:var(--male)}
+.stat-item b.f{color:var(--female)}
 
 /* スタッフ管理 */
-.staff-section{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:24px}
-.staff-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.staff-title{font-size:12px;font-weight:900;color:var(--yellow-muted);letter-spacing:.12em;text-transform:uppercase}
-.staff-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
-.staff-chip{background:var(--card2);border:1px solid var(--border);border-radius:99px;padding:5px 12px;font-size:13px;display:flex;align-items:center;gap:6px}
-.staff-chip-del{background:none;border:none;color:#ff4466;cursor:pointer;font-size:14px;padding:0;line-height:1}
-.staff-add-row{display:flex;gap:8px}
-.staff-inp{flex:1;background:var(--card2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;padding:8px 12px;outline:none;font-family:inherit}
+.staff-bar{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.staff-bar-label{font-size:11px;color:var(--yellow-muted);font-weight:800;letter-spacing:.1em;white-space:nowrap}
+.staff-chips{display:flex;flex-wrap:wrap;gap:6px;flex:1}
+.staff-chip{background:var(--card2);border:1px solid var(--border);border-radius:99px;padding:3px 10px;font-size:12px;display:flex;align-items:center;gap:5px}
+.staff-chip-del{background:none;border:none;color:#ff4466;cursor:pointer;font-size:13px;padding:0;line-height:1}
+.staff-add-row{display:flex;gap:6px}
+.staff-inp{background:var(--card2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:12px;padding:5px 10px;outline:none;font-family:inherit;width:100px}
 .staff-inp:focus{border-color:var(--yellow)}
-.staff-add-btn{padding:8px 16px;border-radius:8px;border:none;background:var(--yellow);color:#0a0800;font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;white-space:nowrap}
+.staff-add-btn{padding:5px 12px;border-radius:8px;border:none;background:var(--yellow);color:#0a0800;font-weight:800;font-size:12px;cursor:pointer;font-family:inherit;white-space:nowrap}
 
-/* 時間枠セクション */
-.time-section{margin-bottom:28px}
-.time-section-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-.time-badge{background:var(--yellow);color:#0a0800;font-weight:900;font-size:15px;padding:5px 14px;border-radius:8px;font-family:'Montserrat',sans-serif}
-.time-count{font-size:12px;color:#6666888;font-weight:700}
-.time-divider{flex:1;height:1px;background:var(--border)}
+/* 時間枠 */
+.time-section{margin-bottom:20px}
+.time-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.time-badge{background:var(--yellow);color:#0a0800;font-weight:800;font-size:13px;padding:3px 12px;border-radius:6px;font-family:'Montserrat',sans-serif}
+.time-sub{font-size:11px;color:var(--muted)}
+.time-line{flex:1;height:1px;background:var(--border)}
 
-/* 予約カード */
-.res-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px}
-.res-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;transition:border-color .15s}
-.res-card.male-card{border-left:3px solid var(--male)}
-.res-card.female-card{border-left:3px solid var(--female)}
-.res-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.res-card-left{display:flex;align-items:center;gap:8px}
-.gender-badge{display:inline-flex;align-items:center;gap:4px;border-radius:6px;padding:3px 10px;font-size:11px;font-weight:800}
-.gender-badge.male{background:var(--male-bg);color:var(--male);border:1px solid var(--male-border)}
-.gender-badge.female{background:var(--female-bg);color:var(--female);border:1px solid var(--female-border)}
-.res-size{font-size:12px;color:#6666888;font-weight:700}
-.res-time-small{font-size:10px;color:#6666888;font-family:'Montserrat',sans-serif}
+/* テーブル */
+.res-table{width:100%;border-collapse:collapse}
+.res-table th{background:var(--card2);color:var(--muted);font-size:11px;font-weight:700;padding:8px 10px;text-align:left;border-bottom:2px solid var(--border);white-space:nowrap;letter-spacing:.05em}
+.res-table td{padding:0;border-bottom:1px solid var(--border);vertical-align:top}
+.res-table tr:last-child td{border-bottom:none}
+.res-table tr:hover td{background:rgba(255,255,255,.02)}
 
-/* 担当者ドロップダウン */
-.staff-select-wrap{margin-bottom:12px}
-.staff-select-label{font-size:10px;color:var(--yellow-muted);font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px}
-.staff-select{width:100%;background:var(--card2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;padding:8px 10px;outline:none;font-family:inherit;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='%238a7a00'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
-.staff-select:focus{border-color:var(--yellow)}
-.staff-select.assigned{border-color:var(--yellow);background-color:#1a1800;color:var(--yellow)}
+/* セル */
+.cell{padding:8px 10px}
+.gender-tag{display:inline-block;border-radius:4px;padding:2px 7px;font-size:11px;font-weight:800;white-space:nowrap}
+.gender-tag.male{background:var(--male-bg);color:var(--male)}
+.gender-tag.female{background:var(--female-bg);color:var(--female)}
+.person-block{padding:4px 0}
+.person-block:not(:last-child){border-bottom:1px dashed var(--border);margin-bottom:4px;padding-bottom:4px}
+.person-role{font-size:10px;color:var(--yellow-muted);font-weight:800;letter-spacing:.05em}
+.person-name{font-size:13px;font-weight:700;color:var(--text)}
+.person-sub{font-size:11px;color:var(--muted)}
+.insta{color:var(--muted);font-size:11px}
+.insta a{color:var(--muted);text-decoration:none}
+.insta a:hover{color:var(--text)}
+.timestamp{font-size:10px;color:#33334a}
 
-/* メンバーリスト */
-.members-list{display:flex;flex-direction:column;gap:6px}
-.member-row{background:var(--card2);border-radius:8px;padding:10px 12px}
-.member-role{font-size:10px;color:var(--yellow-muted);font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
-.member-name{font-size:14px;font-weight:700;color:var(--text);margin-bottom:2px}
-.member-kana{font-size:11px;color:#6666888}
-.member-details{display:flex;gap:12px;margin-top:5px;flex-wrap:wrap}
-.member-detail-item{font-size:11px;color:#6666888;display:flex;align-items:center;gap:3px}
-.member-detail-item span{color:var(--text)}
+/* 担当ドロップダウン */
+.staff-sel{width:100%;background:var(--card2);border:1px solid var(--border);border-radius:6px;color:var(--muted);font-size:12px;padding:6px 8px;outline:none;font-family:inherit;cursor:pointer;min-width:90px}
+.staff-sel:focus{border-color:var(--yellow)}
+.staff-sel.assigned{border-color:var(--yellow);color:var(--yellow);background:var(--yellow-dim)}
 
-/* 予約時刻 */
-.res-timestamp{font-size:10px;color:#444456;margin-top:8px;font-family:'Montserrat',sans-serif}
+/* 空 */
+.empty-row td{text-align:center;color:#33334a;padding:16px;font-size:12px}
 
-/* 空メッセージ */
-.empty-time{background:var(--card);border:1px dashed var(--border);border-radius:10px;padding:20px;text-align:center;color:#444456;font-size:13px}
-
-/* レスポンシブ */
-@media(max-width:600px){
-  .stats-row{grid-template-columns:repeat(2,1fr)}
-  .res-cards{grid-template-columns:1fr}
-  .header{padding:12px 14px}
+@media(max-width:700px){
+  .res-table{display:block;overflow-x:auto}
 }
 </style>
 </head>
 <body>
 
-<!-- ローディング -->
 <div class="loading" id="loading"><div class="spinner"></div></div>
 
 <!-- ログイン -->
 <div id="page-login" style="display:none">
   <div class="login-wrap">
     <div class="login-box">
-      <div class="login-icon">🎪</div>
-      <div class="login-title">運営管理</div>
-      <div class="login-sub">ciyuu party スタッフ専用</div>
+      <div class="login-title">🎪 運営管理</div>
       <input class="login-input" type="password" id="pin-inp" placeholder="パスワードを入力" maxlength="20" onkeydown="if(event.key==='Enter')doLogin()">
       <button class="login-btn" onclick="doLogin()">ログイン</button>
       <div class="login-err" id="login-err" style="display:none">パスワードが正しくありません</div>
@@ -137,41 +121,32 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP','Hiragino
 
 <!-- メイン -->
 <div id="page-main" style="display:none">
-
-  <!-- ヘッダー -->
   <div class="header">
-    <div class="header-left">
-      <h1 id="hdr-title">ciyuu party</h1>
-      <p id="hdr-sub">運営管理ダッシュボード</p>
-    </div>
+    <h1 id="hdr-title">ciyuu party 運営管理</h1>
     <div class="rt-badge"><div class="rt-dot"></div>リアルタイム同期中</div>
   </div>
-
   <div class="main">
 
     <!-- 統計 -->
-    <div class="stats-row">
-      <div class="stat-card"><div class="stat-val" id="stat-total">0</div><div class="stat-label">総予約組数</div></div>
-      <div class="stat-card"><div class="stat-val" id="stat-people" style="color:var(--text)">0</div><div class="stat-label">総参加者数</div></div>
-      <div class="stat-card"><div class="stat-val" id="stat-male" style="color:var(--male)">0</div><div class="stat-label">男性グループ</div></div>
-      <div class="stat-card"><div class="stat-val" id="stat-female" style="color:var(--female)">0</div><div class="stat-label">女性グループ</div></div>
+    <div class="stats-bar">
+      <div class="stat-item">総予約 <b class="y" id="s-total">0</b>組</div>
+      <div class="stat-item">参加者 <b id="s-people">0</b>名</div>
+      <div class="stat-item">男性 <b class="m" id="s-male">0</b>組</div>
+      <div class="stat-item">女性 <b class="f" id="s-female">0</b>組</div>
     </div>
 
     <!-- スタッフ管理 -->
-    <div class="staff-section">
-      <div class="staff-header">
-        <div class="staff-title">👥 担当スタッフ名簿</div>
-        <div style="font-size:11px;color:#6666888">追加・削除して保存してください</div>
-      </div>
+    <div class="staff-bar">
+      <div class="staff-bar-label">👥 担当</div>
       <div class="staff-chips" id="staff-chips"></div>
       <div class="staff-add-row">
-        <input class="staff-inp" type="text" id="staff-inp" placeholder="スタッフ名を入力" maxlength="20" onkeydown="if(event.key==='Enter')addStaff()">
-        <button class="staff-add-btn" onclick="addStaff()">＋ 追加</button>
+        <input class="staff-inp" type="text" id="staff-inp" placeholder="名前を追加" maxlength="20" onkeydown="if(event.key==='Enter')addStaff()">
+        <button class="staff-add-btn" onclick="addStaff()">＋</button>
       </div>
     </div>
 
-    <!-- 予約一覧（時間枠順） -->
-    <div id="reservations-container"></div>
+    <!-- 予約一覧 -->
+    <div id="res-container"></div>
 
   </div>
 </div>
@@ -179,236 +154,148 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP','Hiragino
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 <script>
-const FB = {
-  apiKey:"AIzaSyAqcDp0RFuJ_bY8whD_ekzEzvOXuUzbkDg",
-  authDomain:"ciyuu-party-1.firebaseapp.com",
-  projectId:"ciyuu-party-1",
-  storageBucket:"ciyuu-party-1.firebasestorage.app",
-  messagingSenderId:"622560799970",
-  appId:"1:622560799970:web:73d4e7e5cb06faacccc2bb"
-};
+const FB={apiKey:"AIzaSyAqcDp0RFuJ_bY8whD_ekzEzvOXuUzbkDg",authDomain:"ciyuu-party-1.firebaseapp.com",projectId:"ciyuu-party-1",storageBucket:"ciyuu-party-1.firebasestorage.app",messagingSenderId:"622560799970",appId:"1:622560799970:web:73d4e7e5cb06faacccc2bb"};
+const OPS_PIN="ops2025";
 
-// 運営用パスワード（ここを変更してください）
-const OPS_PIN = "ops2025";
+let db=null, eventCfg={}, resCache=[], staffList=[], loggedIn=false;
 
-let db = null;
-let eventCfg = {};
-let resCache = [];
-let staffList = [];
-let loggedIn = false;
-
-// ── 初期化 ──
-function init() {
-  try {
-    if (!firebase.apps.length) firebase.initializeApp(FB);
-    db = firebase.firestore();
-
-    // 設定を読み込む
-    db.collection('config').doc('main').onSnapshot(snap => {
-      if (snap.exists) {
-        eventCfg = snap.data();
-        const el = document.getElementById('hdr-title');
-        if (el) el.textContent = eventCfg.eventName || 'ciyuu party';
-        const sub = document.getElementById('hdr-sub');
-        if (sub) sub.textContent = (eventCfg.eventDate || '') + '　' + (eventCfg.venueName || '') + '　運営管理';
+function init(){
+  try{
+    if(!firebase.apps.length) firebase.initializeApp(FB);
+    db=firebase.firestore();
+    db.collection('config').doc('main').onSnapshot(snap=>{
+      if(snap.exists){
+        eventCfg=snap.data();
+        const el=document.getElementById('hdr-title');
+        if(el) el.textContent=(eventCfg.eventName||'ciyuu party')+' 運営管理';
       }
     });
-
-    // スタッフリストを読み込む
-    db.collection('config').doc('staff').onSnapshot(snap => {
-      staffList = snap.exists ? (snap.data().names || []) : [];
+    db.collection('config').doc('staff').onSnapshot(snap=>{
+      staffList=snap.exists?(snap.data().names||[]):[];
       renderStaffChips();
-      renderReservations();
+      renderAll();
     });
-
-    // 予約データをリアルタイムで取得
-    db.collection('reservations').orderBy('createdAt', 'asc').onSnapshot(snap => {
-      resCache = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    db.collection('reservations').orderBy('createdAt','asc').onSnapshot(snap=>{
+      resCache=snap.docs.map(d=>({id:d.id,...d.data()}));
       renderStats();
-      renderReservations();
+      renderAll();
     });
-
-    document.getElementById('loading').style.display = 'none';
-    document.getElementById('page-login').style.display = 'block';
-  } catch(e) {
-    document.getElementById('loading').style.display = 'none';
-    document.getElementById('page-login').style.display = 'block';
+    document.getElementById('loading').style.display='none';
+    document.getElementById('page-login').style.display='block';
+  }catch(e){
+    document.getElementById('loading').style.display='none';
+    document.getElementById('page-login').style.display='block';
   }
 }
 
-// ── ログイン ──
-function doLogin() {
-  const entered = document.getElementById('pin-inp').value;
-  if (entered === OPS_PIN) {
-    loggedIn = true;
-    document.getElementById('page-login').style.display = 'none';
-    document.getElementById('page-main').style.display = 'block';
-    renderStats();
-    renderStaffChips();
-    renderReservations();
-  } else {
-    document.getElementById('login-err').style.display = 'block';
+function doLogin(){
+  if(document.getElementById('pin-inp').value===OPS_PIN){
+    loggedIn=true;
+    document.getElementById('page-login').style.display='none';
+    document.getElementById('page-main').style.display='block';
+    renderStats(); renderStaffChips(); renderAll();
+  }else{
+    document.getElementById('login-err').style.display='block';
   }
 }
 
-// ── 統計 ──
-function renderStats() {
-  if (!loggedIn) return;
-  document.getElementById('stat-total').textContent = resCache.length + '組';
-  document.getElementById('stat-people').textContent = resCache.reduce((s,r) => s+(r.groupSize||0), 0) + '名';
-  document.getElementById('stat-male').textContent = resCache.filter(r=>r.gender==='male').length + '組';
-  document.getElementById('stat-female').textContent = resCache.filter(r=>r.gender==='female').length + '組';
+function renderStats(){
+  if(!loggedIn) return;
+  document.getElementById('s-total').textContent=resCache.length;
+  document.getElementById('s-people').textContent=resCache.reduce((s,r)=>s+(r.groupSize||0),0);
+  document.getElementById('s-male').textContent=resCache.filter(r=>r.gender==='male').length;
+  document.getElementById('s-female').textContent=resCache.filter(r=>r.gender==='female').length;
 }
 
-// ── スタッフ管理 ──
-function renderStaffChips() {
-  if (!loggedIn) return;
-  const el = document.getElementById('staff-chips');
-  if (!el) return;
-  if (staffList.length === 0) {
-    el.innerHTML = '<div style="font-size:12px;color:#444456">まだスタッフが登録されていません</div>';
-    return;
-  }
-  el.innerHTML = staffList.map((name, i) =>
-    `<div class="staff-chip">
-      <span>${name}</span>
-      <button class="staff-chip-del" onclick="removeStaff(${i})">✕</button>
-    </div>`
-  ).join('');
+function renderStaffChips(){
+  if(!loggedIn) return;
+  const el=document.getElementById('staff-chips');if(!el)return;
+  el.innerHTML=staffList.length===0
+    ?'<span style="font-size:11px;color:#33334a">スタッフ名を追加してください</span>'
+    :staffList.map((n,i)=>`<div class="staff-chip"><span>${n}</span><button class="staff-chip-del" onclick="removeStaff(${i})">✕</button></div>`).join('');
 }
 
-async function addStaff() {
-  const inp = document.getElementById('staff-inp');
-  const name = inp.value.trim();
-  if (!name) return;
-  if (staffList.includes(name)) { inp.value = ''; return; }
-  const newList = [...staffList, name];
-  await db.collection('config').doc('staff').set({ names: newList });
-  inp.value = '';
+async function addStaff(){
+  const inp=document.getElementById('staff-inp');
+  const name=inp.value.trim();
+  if(!name||staffList.includes(name)){inp.value='';return;}
+  await db.collection('config').doc('staff').set({names:[...staffList,name]});
+  inp.value='';
+}
+async function removeStaff(i){
+  await db.collection('config').doc('staff').set({names:staffList.filter((_,idx)=>idx!==i)});
+}
+async function saveContact(resId,val){
+  await db.collection('reservations').doc(resId).update({staffContact:val});
 }
 
-async function removeStaff(i) {
-  const newList = staffList.filter((_, idx) => idx !== i);
-  await db.collection('config').doc('staff').set({ names: newList });
-}
+function renderAll(){
+  if(!loggedIn) return;
+  const sessions=eventCfg.sessions||[];
+  let html='';
 
-// ── 担当者を保存 ──
-async function saveStaffContact(resId, staffName) {
-  await db.collection('reservations').doc(resId).update({ staffContact: staffName });
-}
+  sessions.forEach(session=>{
+    const sRes=resCache.filter(r=>r.sessionId===session.id);
+    const maleRes=sRes.filter(r=>r.gender==='male');
+    const femaleRes=sRes.filter(r=>r.gender==='female');
+    const total=sRes.reduce((s,r)=>s+(r.groupSize||0),0);
 
-// ── 予約一覧 ──
-function renderReservations() {
-  if (!loggedIn) return;
-  const container = document.getElementById('reservations-container');
-  if (!container) return;
-
-  // 時間枠を取得（設定から）
-  const sessions = eventCfg.sessions || [];
-
-  // 時間枠順に並べる
-  const sessionOrder = sessions.map(s => s.id);
-
-  // 時間枠ごとにグループ化
-  const bySession = {};
-  resCache.forEach(r => {
-    const sid = r.sessionId || 'unknown';
-    if (!bySession[sid]) bySession[sid] = [];
-    bySession[sid].push(r);
-  });
-
-  // 時間枠順にセクションを作成
-  let html = '';
-  const renderedSessions = new Set();
-
-  // 設定にある時間枠を順番に表示
-  sessions.forEach(session => {
-    renderedSessions.add(session.id);
-    const sessionRes = bySession[session.id] || [];
-    const maleRes = sessionRes.filter(r => r.gender === 'male');
-    const femaleRes = sessionRes.filter(r => r.gender === 'female');
-    const totalPeople = sessionRes.reduce((s,r) => s+(r.groupSize||0), 0);
-
-    html += `<div class="time-section">
-      <div class="time-section-head">
+    html+=`<div class="time-section">
+      <div class="time-head">
         <div class="time-badge">${session.time}</div>
-        <div class="time-count">${sessionRes.length}組 / ${totalPeople}名</div>
-        <div class="time-divider"></div>
+        <div class="time-sub">${sRes.length}組 ${total}名</div>
+        <div class="time-line"></div>
       </div>
-      <div class="res-cards">`;
+      <table class="res-table">
+        <thead>
+          <tr>
+            <th>性別</th>
+            <th>人数</th>
+            <th>名前 / フリガナ</th>
+            <th>生年月日</th>
+            <th>Instagram</th>
+            <th>担当</th>
+            <th>予約日時</th>
+          </tr>
+        </thead>
+        <tbody>`;
 
-    if (sessionRes.length === 0) {
-      html += `<div class="empty-time" style="grid-column:1/-1">この時間帯の予約はありません</div>`;
-    } else {
-      // 男性→女性の順に表示
-      [...maleRes, ...femaleRes].forEach(r => {
-        html += renderResCard(r, session.time);
+    if(sRes.length===0){
+      html+=`<tr class="empty-row"><td colspan="7">予約なし</td></tr>`;
+    }else{
+      [...maleRes,...femaleRes].forEach(r=>{
+        const rep=r.representative||{};
+        const companions=r.companions||[];
+        const allP=[{role:'代表者',...rep},...companions.map((c,i)=>({role:`同行者${i+1}`,...c}))];
+        const assigned=r.staffContact||'';
+        
+        const dtFull=r.createdAt?new Date(r.createdAt).toLocaleString('ja-JP'):'';
+        const staffOpts=['<option value="">未選択</option>',...staffList.map(n=>`<option value="${n}"${assigned===n?' selected':''}>${n}</option>`)].join('');
+
+        const namesHtml=allP.map(p=>`<div class="person-block"><div class="person-role">${p.role}</div><div class="person-name">${p.name||''}</div><div class="person-sub">${p.kana||''}</div></div>`).join('');
+        const dobHtml=allP.map(p=>`<div class="person-block"><div class="person-role">&nbsp;</div><div style="font-size:12px;color:var(--text)">${p.dob||'-'}</div></div>`).join('');
+        const instaHtml=allP.map(p=>`<div class="person-block"><div class="person-role">&nbsp;</div><div class="insta"><a href="https://instagram.com/${p.instagram||''}" target="_blank">@${p.instagram||'-'}</a></div></div>`).join('');
+
+        html+=`<tr>
+          <td class="cell"><span class="gender-tag ${r.gender==='male'?'male':'female'}">${r.gender==='male'?'👨 男':'👩 女'}</span></td>
+          <td class="cell" style="text-align:center;font-weight:700">${r.groupSize}名</td>
+          <td class="cell">${namesHtml}</td>
+          <td class="cell">${dobHtml}</td>
+          <td class="cell">${instaHtml}</td>
+          <td class="cell">
+            <select class="staff-sel ${assigned?'assigned':''}" onchange="saveContact('${r.id}',this.value);this.className='staff-sel '+(this.value?'assigned':'')">
+              ${staffOpts}
+            </select>
+          </td>
+          <td class="cell timestamp">${dtFull}</td>
+        </tr>`;
       });
     }
 
-    html += `</div></div>`;
+    html+=`</tbody></table></div>`;
   });
 
-  // 時間枠設定にない予約（時間帯不明）
-  const unknownRes = resCache.filter(r => !sessions.find(s => s.id === r.sessionId));
-  if (unknownRes.length > 0) {
-    html += `<div class="time-section">
-      <div class="time-section-head">
-        <div class="time-badge" style="background:var(--card2);color:var(--muted)">時間帯不明</div>
-        <div class="time-divider"></div>
-      </div>
-      <div class="res-cards">`;
-    unknownRes.forEach(r => { html += renderResCard(r, r.sessionTime || '不明'); });
-    html += `</div></div>`;
-  }
-
-  container.innerHTML = html;
-}
-
-function renderResCard(r, timeLabel) {
-  const isM = r.gender === 'male';
-  const gLabel = isM ? '👨 男性' : '👩 女性';
-  const gClass = isM ? 'male' : 'female';
-  const rep = r.representative || {};
-  const companions = r.companions || [];
-  const allPeople = [{role:'代表者', ...rep}, ...companions.map((c,i) => ({role:`同行者${i+1}`, ...c}))];
-  const dt = r.createdAt ? new Date(r.createdAt).toLocaleString('ja-JP') : '';
-  const assigned = r.staffContact || '';
-
-  // スタッフ選択オプション
-  const staffOptions = ['<option value="">── 未選択 ──</option>',
-    ...staffList.map(name => `<option value="${name}" ${assigned===name?'selected':''}>${name}</option>`)
-  ].join('');
-
-  // メンバー表示
-  const membersHtml = allPeople.map(p => `
-    <div class="member-row">
-      <div class="member-role">${p.role}</div>
-      <div class="member-name">${p.name || ''}</div>
-      <div class="member-kana">${p.kana || ''}</div>
-      <div class="member-details">
-        <div class="member-detail-item">📅 <span>${p.dob || ''}</span></div>
-        <div class="member-detail-item">📸 <span>@${p.instagram || ''}</span></div>
-      </div>
-    </div>`).join('');
-
-  return `<div class="res-card ${gClass}-card">
-    <div class="res-card-header">
-      <div class="res-card-left">
-        <span class="gender-badge ${gClass}">${gLabel}</span>
-        <span class="res-size">${r.groupSize}名</span>
-      </div>
-      <div class="res-time-small">${timeLabel}</div>
-    </div>
-    <div class="staff-select-wrap">
-      <div class="staff-select-label">👤 担当スタッフ</div>
-      <select class="staff-select ${assigned?'assigned':''}" onchange="saveStaffContact('${r.id}', this.value); this.className='staff-select '+(this.value?'assigned':'')">
-        ${staffOptions}
-      </select>
-    </div>
-    <div class="members-list">${membersHtml}</div>
-    <div class="res-timestamp">予約日時：${dt}</div>
-  </div>`;
+  document.getElementById('res-container').innerHTML=html||'<div style="text-align:center;color:var(--muted);padding:40px">予約データがありません</div>';
 }
 
 init();
