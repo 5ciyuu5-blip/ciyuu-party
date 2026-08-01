@@ -566,7 +566,7 @@ function goToBook(){
 }
 
 // ── 予約フォーム ──
-function countP(sid,g){return resCache.filter(r=>r.sessionId===sid&&r.gender===g).reduce((s,r)=>s+(r.groupSize||0),0);}
+function countP(sid,g){return resCache.filter(r=>r.sessionId===sid&&r.gender===g).length;} // 組数カウント
 function getMax(s,g){return g==='male'?(s.maxMale||10):(s.maxFemale||10);}
 
 function renderChips(){
@@ -636,7 +636,7 @@ async function submitBooking(){
     companions.push({name:n,kana:k,dob:d,instagram:ig});
   }
   const session=(cfg.sessions||[]).find(s=>s.id===sid);
-  if(countP(sid,gender)+size>getMax(session,gender)){showErr('選択した時間帯は満席です。別の時間帯をお選びください。');fState.sid=null;renderChips();return;}
+  if(countP(sid,gender)>=getMax(session,gender)){showErr('選択した時間帯は満席です。別の時間帯をお選びください。');fState.sid=null;renderChips();return;}
   const btn=document.getElementById('btn-submit');btn.disabled=true;btn.textContent='送信中…';
   try{
     const entry={sessionId:sid,sessionTime:session.time,gender,groupSize:size,representative:{name:rn,kana:rk,dob:rd,instagram:ri},companions,createdAt:new Date().toISOString()};
@@ -680,7 +680,7 @@ function renderDashboard(){
     const mC=countP(s.id,'male'),fC=countP(s.id,'female');
     const mG=resCache.filter(r=>r.sessionId===s.id&&r.gender==='male').length;
     const fG=resCache.filter(r=>r.sessionId===s.id&&r.gender==='female').length;
-    return`<div class="ses-summary"><div class="ses-summary-head">${s.time}</div><div class="summary-genders"><div class="summary-g male"><div class="summary-g-label">👨 男性</div><div class="summary-g-count">${mC}<span style="font-size:12px;font-weight:600;color:var(--muted)">/${s.maxMale||10}名</span></div><div class="summary-g-sub">${mG}グループ</div></div><div class="summary-g female"><div class="summary-g-label">👩 女性</div><div class="summary-g-count">${fC}<span style="font-size:12px;font-weight:600;color:var(--muted)">/${s.maxFemale||10}名</span></div><div class="summary-g-sub">${fG}グループ</div></div></div></div>`;
+    return`<div class="ses-summary"><div class="ses-summary-head">${s.time}</div><div class="summary-genders"><div class="summary-g male"><div class="summary-g-label">👨 男性</div><div class="summary-g-count">${mC}<span style="font-size:12px;font-weight:600;color:var(--muted)">/${s.maxMale||10}組</span></div><div class="summary-g-sub">${mG}グループ</div></div><div class="summary-g female"><div class="summary-g-label">👩 女性</div><div class="summary-g-count">${fC}<span style="font-size:12px;font-weight:600;color:var(--muted)">/${s.maxFemale||10}組</span></div><div class="summary-g-sub">${fG}グループ</div></div></div></div>`;
   }).join('');
   let listHtml='',any=false;
   sessions.forEach(s=>{
@@ -722,8 +722,8 @@ function renderSesEditor(sessions){
     <div class="ses-edit-row" id="sr-${i}">
       <input class="ses-time-inp" type="text" id="st-${i}" value="${s.time}" placeholder="20:00">
       <div class="ses-cap-pair">
-        <div class="ses-cap-item"><label>👨 男性上限</label><input type="number" id="sm-${i}" value="${s.maxMale||10}" min="1" max="99"></div>
-        <div class="ses-cap-item"><label>👩 女性上限</label><input type="number" id="sf-${i}" value="${s.maxFemale||10}" min="1" max="99"></div>
+        <div class="ses-cap-item"><label>👨 男性上限（組）</label><input type="number" id="sm-${i}" value="${s.maxMale||10}" min="1" max="99"></div>
+        <div class="ses-cap-item"><label>👩 女性上限（組）</label><input type="number" id="sf-${i}" value="${s.maxFemale||10}" min="1" max="99"></div>
       </div>
       ${sessions.length>1?`<button class="btn-rm-ses" onclick="rmSes(${i})">✕</button>`:''}
     </div>`).join('');
