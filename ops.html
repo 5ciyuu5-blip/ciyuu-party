@@ -214,8 +214,8 @@ function render() {
     const sRes = resCache.filter(r => r.sessionId === session.id);
     const maleRes = sRes.filter(r => r.gender === 'male');
     const femaleRes = sRes.filter(r => r.gender === 'female');
-    const cntM = sRes.filter(r=>r.gender==='male').reduce((s,r)=>s+(r.groupSize||0),0);
-    const cntF = sRes.filter(r=>r.gender==='female').reduce((s,r)=>s+(r.groupSize||0),0);
+    const cntM = sRes.filter(r=>r.gender==='male').length; // 組数
+    const cntF = sRes.filter(r=>r.gender==='female').length; // 組数
     const maxM = session.maxMale || 10;
     const maxF = session.maxFemale || 10;
     const pctM = Math.min(cntM/maxM*100, 100);
@@ -233,11 +233,11 @@ function render() {
       <div class="time-card">
         <div class="cap-bar-wrap">
           <div class="cap-bar-item">
-            <div class="cap-bar-label m ${fullM?'full':''}"><span>👨 男性</span><span>${cntM}/${maxM}名${fullM?' 満席':''}</span></div>
+            <div class="cap-bar-label m ${fullM?'full':''}"><span>👨 男性</span><span>${cntM}/${maxM}組${fullM?' 満席':''}</span></div>
             <div class="cap-bar-track"><div class="cap-bar-fill m ${fullM?'full':''}" style="width:${pctM}%"></div></div>
           </div>
           <div class="cap-bar-item">
-            <div class="cap-bar-label f ${fullF?'full':''}"><span>👩 女性</span><span>${cntF}/${maxF}名${fullF?' 満席':''}</span></div>
+            <div class="cap-bar-label f ${fullF?'full':''}"><span>👩 女性</span><span>${cntF}/${maxF}組${fullF?' 満席':''}</span></div>
             <div class="cap-bar-track"><div class="cap-bar-fill f ${fullF?'full':''}" style="width:${pctF}%"></div></div>
           </div>
         </div>`;
